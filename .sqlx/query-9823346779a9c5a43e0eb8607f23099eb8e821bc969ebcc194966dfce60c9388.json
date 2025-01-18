@@ -1,0 +1,334 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT\n                min_fee_a,\n                min_fee_b,\n                max_block_size,\n                max_tx_size,\n                max_bh_size,\n                key_deposit,\n                pool_deposit,\n                max_epoch,\n                optimal_pool_count,\n                influence,\n                monetary_expand_rate,\n                treasury_growth_rate,\n                decentralisation,\n                protocol_major,\n                protocol_minor,\n                min_utxo_value,\n                min_pool_cost,\n                nonce,\n                price_mem,\n                price_step,\n                max_tx_ex_mem,\n                max_tx_ex_steps,\n                max_block_ex_mem,\n                max_block_ex_steps,\n                max_val_size,\n                collateral_percent,\n                max_collateral_inputs,\n                block_id,\n                extra_entropy,\n                coins_per_utxo_size,\n                pvt_motion_no_confidence,\n                pvt_committee_normal,\n                pvt_committee_no_confidence,\n                pvt_hard_fork_initiation,\n                dvt_motion_no_confidence,\n                dvt_committee_normal,\n                dvt_committee_no_confidence,\n                dvt_update_to_constitution,\n                dvt_hard_fork_initiation,\n                dvt_p_p_network_group,\n                dvt_p_p_economic_group,\n                dvt_p_p_technical_group,\n                dvt_p_p_gov_group,\n                dvt_treasury_withdrawal,\n                committee_min_size,\n                committee_max_term_length,\n                gov_action_lifetime,\n                gov_action_deposit,\n                drep_deposit,\n                drep_activity,\n                pvtpp_security_group,\n                min_fee_ref_script_cost_per_byte,\n                costs\n            FROM public.epoch_param\n            JOIN public.cost_model ON epoch_param.cost_model_id = cost_model.id\n            WHERE epoch_no = $1;\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "min_fee_a",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "min_fee_b",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "max_block_size",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "max_tx_size",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "max_bh_size",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 5,
+        "name": "key_deposit",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "pool_deposit",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 7,
+        "name": "max_epoch",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 8,
+        "name": "optimal_pool_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "influence",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 10,
+        "name": "monetary_expand_rate",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 11,
+        "name": "treasury_growth_rate",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 12,
+        "name": "decentralisation",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 13,
+        "name": "protocol_major",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 14,
+        "name": "protocol_minor",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 15,
+        "name": "min_utxo_value",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 16,
+        "name": "min_pool_cost",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 17,
+        "name": "nonce",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 18,
+        "name": "price_mem",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 19,
+        "name": "price_step",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 20,
+        "name": "max_tx_ex_mem",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 21,
+        "name": "max_tx_ex_steps",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 22,
+        "name": "max_block_ex_mem",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 23,
+        "name": "max_block_ex_steps",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 24,
+        "name": "max_val_size",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 25,
+        "name": "collateral_percent",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 26,
+        "name": "max_collateral_inputs",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 27,
+        "name": "block_id",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 28,
+        "name": "extra_entropy",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 29,
+        "name": "coins_per_utxo_size",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 30,
+        "name": "pvt_motion_no_confidence",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 31,
+        "name": "pvt_committee_normal",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 32,
+        "name": "pvt_committee_no_confidence",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 33,
+        "name": "pvt_hard_fork_initiation",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 34,
+        "name": "dvt_motion_no_confidence",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 35,
+        "name": "dvt_committee_normal",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 36,
+        "name": "dvt_committee_no_confidence",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 37,
+        "name": "dvt_update_to_constitution",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 38,
+        "name": "dvt_hard_fork_initiation",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 39,
+        "name": "dvt_p_p_network_group",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 40,
+        "name": "dvt_p_p_economic_group",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 41,
+        "name": "dvt_p_p_technical_group",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 42,
+        "name": "dvt_p_p_gov_group",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 43,
+        "name": "dvt_treasury_withdrawal",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 44,
+        "name": "committee_min_size",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 45,
+        "name": "committee_max_term_length",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 46,
+        "name": "gov_action_lifetime",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 47,
+        "name": "gov_action_deposit",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 48,
+        "name": "drep_deposit",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 49,
+        "name": "drep_activity",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 50,
+        "name": "pvtpp_security_group",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 51,
+        "name": "min_fee_ref_script_cost_per_byte",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 52,
+        "name": "costs",
+        "type_info": "Jsonb"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "9823346779a9c5a43e0eb8607f23099eb8e821bc969ebcc194966dfce60c9388"
+}
