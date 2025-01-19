@@ -12,6 +12,13 @@ impl DBSyncOracle {
 
         Ok(Self { pool })
     }
+
+    fn float_to_rational(value: f64) -> utxorpc::spec::cardano::RationalNumber {
+        utxorpc::spec::cardano::RationalNumber {
+            numerator: (value * 10_000_000.0) as i32,
+            denominator: 10_000_000,
+        }
+    }
 }
 
 impl super::CardanoOracle for DBSyncOracle {
@@ -120,14 +127,12 @@ impl super::CardanoOracle for DBSyncOracle {
 
         // Prices are derived from the params query
         let prices = utxorpc::spec::cardano::ExPrices {
-            memory: Some(utxorpc::spec::cardano::RationalNumber {
-                numerator: params.price_mem.unwrap_or_default() as i32,
-                denominator: 1,
-            }),
-            steps: Some(utxorpc::spec::cardano::RationalNumber {
-                numerator: params.price_step.unwrap_or_default() as i32,
-                denominator: 1,
-            }),
+            memory: Some(Self::float_to_rational(
+                params.price_mem.unwrap_or_default(),
+            )),
+            steps: Some(Self::float_to_rational(
+                params.price_step.unwrap_or_default(),
+            )),
         };
 
         Ok(utxorpc::spec::cardano::PParams {
@@ -154,18 +159,9 @@ impl super::CardanoOracle for DBSyncOracle {
                 .unwrap_or_default(),
             pool_retirement_epoch_bound: params.max_epoch as u64,
             desired_number_of_pools: params.optimal_pool_count as u64,
-            pool_influence: Some(utxorpc::spec::cardano::RationalNumber {
-                numerator: (params.influence * 1_000_000.0) as i32,
-                denominator: 1_000_000,
-            }),
-            monetary_expansion: Some(utxorpc::spec::cardano::RationalNumber {
-                numerator: (params.monetary_expand_rate * 1_000_000.0) as i32,
-                denominator: 1_000_000,
-            }),
-            treasury_expansion: Some(utxorpc::spec::cardano::RationalNumber {
-                numerator: (params.treasury_growth_rate * 1_000_000.0) as i32,
-                denominator: 1_000_000,
-            }),
+            pool_influence: Some(Self::float_to_rational(params.influence)),
+            monetary_expansion: Some(Self::float_to_rational(params.monetary_expand_rate)),
+            treasury_expansion: Some(Self::float_to_rational(params.treasury_growth_rate)),
             min_pool_cost: params
                 .min_pool_cost
                 .to_string()
@@ -213,58 +209,25 @@ impl super::CardanoOracle for DBSyncOracle {
                     .parse::<u64>()
                     .unwrap_or_default(),
             }),
-            min_fee_script_ref_cost_per_byte: params.min_fee_ref_script_cost_per_byte.map(|v| {
-                utxorpc::spec::cardano::RationalNumber {
-                    numerator: (v * 1_000_000.0) as i32,
-                    denominator: 1_000_000,
-                }
-            }),
+            min_fee_script_ref_cost_per_byte: params
+                .min_fee_ref_script_cost_per_byte
+                .map(Self::float_to_rational),
             pool_voting_thresholds: Some(utxorpc::spec::cardano::VotingThresholds {
                 thresholds: vec![
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.pvt_motion_no_confidence.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.pvt_committee_normal.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.pvt_committee_no_confidence.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.pvt_hard_fork_initiation.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.pvtpp_security_group.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
+                    Self::float_to_rational(params.pvt_motion_no_confidence.unwrap_or_default()),
+                    Self::float_to_rational(params.pvt_committee_normal.unwrap_or_default()),
+                    Self::float_to_rational(params.pvt_committee_no_confidence.unwrap_or_default()),
+                    Self::float_to_rational(params.pvt_hard_fork_initiation.unwrap_or_default()),
+                    Self::float_to_rational(params.pvtpp_security_group.unwrap_or_default()),
                 ],
             }),
             drep_voting_thresholds: Some(utxorpc::spec::cardano::VotingThresholds {
                 thresholds: vec![
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.dvt_motion_no_confidence.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.dvt_committee_normal.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.dvt_committee_no_confidence.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.dvt_hard_fork_initiation.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
-                    utxorpc::spec::cardano::RationalNumber {
-                        numerator: params.dvt_p_p_gov_group.unwrap_or_default() as i32,
-                        denominator: 1,
-                    },
+                    Self::float_to_rational(params.dvt_motion_no_confidence.unwrap_or_default()),
+                    Self::float_to_rational(params.dvt_committee_normal.unwrap_or_default()),
+                    Self::float_to_rational(params.dvt_committee_no_confidence.unwrap_or_default()),
+                    Self::float_to_rational(params.dvt_hard_fork_initiation.unwrap_or_default()),
+                    Self::float_to_rational(params.dvt_p_p_gov_group.unwrap_or_default()),
                 ],
             }),
             min_committee_size: params
